@@ -5,6 +5,7 @@ seoDescription: "Hello world"
 datePublished: Sat Jan 10 2026 06:48:15 GMT+0000 (Coordinated Universal Time)
 cuid: cmk7y1h8b000c02jr8vs3fggf
 slug: hello-world
+cover: https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/dBmScckh7y0/upload/5feabf3463c694a8bfa85a6e0694b8e1.jpeg
 
 ---
 
