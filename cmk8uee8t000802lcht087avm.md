@@ -1,6 +1,6 @@
 ---
 title: "Free Mail Forwarding (Haltman.io): the modern fork of the classic THC service — and why it matters"
-seoTitle: "New Free Mail Forwarding Service "
+seoTitle: "New Free Mail Forwarding Service"
 seoDescription: "A modern, open-source mail forwarding infrastructure focused on privacy, simplicity, and auditability."
 datePublished: Sat Jan 10 2026 21:54:06 GMT+0000 (Coordinated Universal Time)
 cuid: cmk8uee8t000802lcht087avm
