@@ -137,7 +137,7 @@ And when you want something that fits into a spreadsheet/SIEM/grep, there are **
 
 ## Layer 3: Bulk data (Parquet/CSV) — “build your own engine”
 
-If you want **scale**, the route is to download the monthly dump and query locally. The project itself recommends **DuckDB** and gives a direct query example in Parquet: (\[IP THC\]\[7\])
+If you want **scale**, the route is to download the monthly dump and query locally. The project itself recommends **DuckDB** and gives a direct query example in Parquet:
 
 ```bash
 duckdb
@@ -216,7 +216,7 @@ If Shodan/Censys are “service search engines,” [**ip.thc.org**](http://ip.th
     
 * integrable (API/CSV)
     
-* scalable (monthly Parquet + DuckDB) (\[IP THC\]\[1\])
+* scalable (monthly Parquet + DuckDB)
     
 
 In 2026, with **5.14B records** published and a very objective distribution model, it is worth adding [ip.thc.org](http://ip.thc.org) to your OSINT kit — especially if you work with **ASM, Threat Intel, IR**, or responsible offensive research.
