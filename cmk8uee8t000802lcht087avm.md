@@ -27,7 +27,7 @@ The **Free Mail Forwarding Service** project by the [**Haltman.io**](http://Halt
 
 Before the current hype surrounding alias managers, the community already had “old school” solutions. The Hacker’s Choice (THC) maintained a public forwarding service and its current status is clear: **the service is unavailable** because the volunteer who operated it has “disappeared,” and THC itself is asking for someone to take over the operation.
 
-[Haltman.io](http://Haltman.io)'s proposal here is pragmatic: **take the concept that already worked, modernize and repackage it** (stack + API + UI), maintaining the “infrastructure first” spirit.
+[Haltman.io](https://haltman.io)'s proposal here is pragmatic: **take the concept that already worked, modernize and repackage it** (stack + API + UI), maintaining the “infrastructure first” spirit.
 
 ---
 
