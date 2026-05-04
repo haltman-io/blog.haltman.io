@@ -1,0 +1,9 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="blog.haltman.io Open Graph image">
+  <rect width="1200" height="630" fill="#FAFAFA"/>
+  <path d="M80 80H1120V550H80V80Z" fill="white" stroke="#171717" stroke-width="2"/>
+  <path d="M150 184V446H210V337.2H370V446H430V184H370V290.4H210V184H150Z" fill="#171717"/>
+  <path d="M520 220H1010" stroke="#171717" stroke-width="18"/>
+  <path d="M520 306H920" stroke="#737373" stroke-width="18"/>
+  <path d="M520 392H1000" stroke="#A3A3A3" stroke-width="18"/>
+  <path d="M150 514H1050" stroke="#E5E5E5" stroke-width="2"/>
+</svg>

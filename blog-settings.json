@@ -1,0 +1,62 @@
+{
+  "blogName": "blog.haltman.io",
+  "description": "A free blog for everyone. Powered by Haltman.IO. Licensed with Unlicense.org.",
+  "siteUrl": "https://blog.haltman.io",
+  "language": "en",
+  "locale": "en_US",
+  "ownerName": "Haltman.IO",
+  "ownerRole": "a group of Brazilian hackers.",
+  "email": "root@haltman.io",
+  "repositoryUrl": "https://github.com/haltman-io/blog.haltman.io",
+  "repositoryBranch": "main",
+  "displayDemoNotice": true,
+  "postsDirectory": "content/posts",
+  "pagesDirectory": "content/pages",
+  "postsPerPage": 6,
+  "favicon": "/favicon.ico",
+  "defaultOgImage": "/og-default.svg",
+  "logo": {
+    "light": "/logo.svg",
+    "dark": "/logo-dark.svg",
+    "mark": "/logo-mark.svg"
+  },
+  "keywords": [
+    "Next.js",
+    "MDX",
+    "static blog",
+    "open source",
+    "frontend engineering"
+  ],
+  "navbar": {
+    "links": [
+      {
+        "label": "Posts",
+        "href": "/posts",
+        "order": 10
+      }
+    ]
+  },
+  "footer": {
+    "links": [
+      {
+        "label": "Archive",
+        "href": "/posts",
+        "order": 10
+      },
+      {
+        "label": "Email",
+        "href": "mailto:root@haltman.io",
+        "order": 80
+      },
+      {
+        "label": "Source Code",
+        "href": "https://github.com/haltman-io/blog.haltman.io",
+        "order": 90
+      }
+    ]
+  },
+  "social": {
+    "github": "https://github.com/haltman-io",
+    "website": "https://haltman.io"
+  }
+}

@@ -1,0 +1,30 @@
+---
+title: "FAQ"
+description: "Common questions about using this static MDX blog template."
+updated: "2026-05-04"
+navbar:
+  show: true
+  label: "FAQ"
+  order: 70
+footer:
+  show: false
+seo:
+  title: "FAQ"
+  description: "Frequently asked questions about content files, static export, and navigation settings."
+---
+
+## Can pages be hidden from the navbar and footer?
+
+Yes. Set both `navbar.show` and `footer.show` to `false`. The page still builds and remains accessible by URL.
+
+## Can the footer link to external pages?
+
+Yes. Add a link under `footer.links` in `blog-settings.json`. You do not need to create an MDX page for direct external links.
+
+## Can pages use nested slugs?
+
+Yes. Put the file in a nested folder under `content/pages` or set a custom `slug` in front matter.
+
+## Do pages appear in the RSS feed?
+
+No. RSS includes posts only. Pages are included in the sitemap.

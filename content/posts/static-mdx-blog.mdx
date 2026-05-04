@@ -1,0 +1,46 @@
+---
+title: "Building a static MDX blog"
+description: "A short tour of the file-based publishing model used by this template."
+date: "2026-05-03"
+updated: "2026-05-03"
+author: "extencil"
+tags:
+  - Next.js
+  - MDX
+  - Static export
+featured: true
+seo:
+  title: "Building a static MDX blog"
+  description: "How this Next.js template turns MDX files into a static blog with SEO metadata."
+  keywords:
+    - MDX blog
+    - static site
+    - Next.js export
+---
+
+This blog is intentionally file based. Each post lives in `content/posts` and starts with front matter that describes the article.
+
+```mdx
+---
+title: "My first post"
+description: "A concise summary for cards and SEO."
+date: "2026-05-03"
+tags: ["Next.js", "MDX"]
+---
+
+Write the post body here.
+```
+
+## Why MDX
+
+MDX keeps publishing close to Git. The post body is regular Markdown, but it can also use React components when the template exposes them.
+
+## Static by default
+
+The app reads the posts during `next build`, generates static routes with `generateStaticParams`, and exports the result to the `out` directory. That output can be uploaded to any CDN that serves static files.
+
+## What front matter controls
+
+The metadata above feeds the archive, tags, Open Graph data, Twitter cards, canonical URLs, RSS output, and the JSON-LD block for each article.
+
+![image info](https://google.com/google.jpg)

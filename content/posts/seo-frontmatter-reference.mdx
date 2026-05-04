@@ -1,0 +1,37 @@
+---
+title: "Front matter SEO reference"
+description: "The supported metadata fields for posts in this blog starter."
+date: "2026-05-02"
+author: "extencil"
+tags:
+  - SEO
+  - Front matter
+  - Publishing
+seo:
+  title: "Front matter SEO reference for MDX posts"
+  description: "A reference for title, description, canonical, tags, and social metadata in MDX posts."
+---
+
+Use front matter to keep the article body clean while still giving the blog enough metadata to build rich pages.
+
+| Field          | Required | Purpose                                                 |
+| -------------- | -------- | ------------------------------------------------------- |
+| `title`        | Yes      | Page title, archive card title, and fallback SEO title. |
+| `description`  | Yes      | Archive summary and fallback meta description.          |
+| `date`         | Yes      | Publish date for sorting, sitemap, RSS, and JSON-LD.    |
+| `updated`      | No       | Modified date for article metadata.                     |
+| `tags`         | No       | Filters, article metadata, and keyword hints.           |
+| `canonicalUrl` | No       | Overrides the canonical URL when syndicating content.   |
+| `seo.image`    | No       | Overrides the default social image.                     |
+
+## Drafts
+
+Set `published: false` to keep a file in the repository without showing it in production output.
+
+```yaml
+published: false
+```
+
+## Edit links
+
+Every post knows its source path. The post page combines that path with `repositoryUrl` and `repositoryBranch` from `blog-settings.json` to create the `Edit on GitHub` link.

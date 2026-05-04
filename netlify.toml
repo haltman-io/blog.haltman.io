@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build:static"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NEXT_OUTPUT = "export"
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
