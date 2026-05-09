@@ -17,6 +17,7 @@ export type BlogPost = {
   date: string
   updated?: string
   author: string
+  authors: string[]
   tags: string[]
   published: boolean
   featured: boolean

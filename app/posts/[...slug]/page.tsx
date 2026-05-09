@@ -17,6 +17,10 @@ import { Button } from "@/components/ui/button"
 import { TableOfContents } from "@/components/table-of-contents"
 import { absoluteUrl, blogSettings } from "@/lib/blog-settings"
 import { formatPostDate } from "@/lib/format"
+import {
+  getGithubAuthorProfile,
+  type GitHubAuthorProfile,
+} from "@/lib/github-authors"
 import { postTagHref } from "@/lib/post-tag-links"
 import type { BlogPost } from "@/lib/post-types"
 import { getAllPosts, getPostBySlug } from "@/lib/posts"
@@ -27,6 +31,10 @@ type PostPageProps = {
   }>
 }
 
+type PostAuthorProfile = GitHubAuthorProfile & {
+  name: string
+}
+
 export const dynamicParams = false
 
 export function generateStaticParams() {
@@ -35,7 +43,13 @@ export function generateStaticParams() {
   }))
 }
 
-function PostInfoMenu({ post }: { post: BlogPost }) {
+function PostInfoMenu({
+  post,
+  displayEditOnGithub,
+}: {
+  post: BlogPost
+  displayEditOnGithub: boolean
+}) {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-3">
@@ -81,20 +95,80 @@ function PostInfoMenu({ post }: { post: BlogPost }) {
         </div>
       ) : null}
 
-      <Button
-        variant="outline"
-        size="sm"
-        nativeButton={false}
-        className="w-full justify-start rounded-none text-xs font-medium"
-        render={<a href={post.editUrl} target="_blank" rel="noreferrer" />}
-      >
-        <PencilSimpleLineIcon className="mr-2" />
-        Edit on GitHub
-      </Button>
+      {displayEditOnGithub ? (
+        <Button
+          variant="outline"
+          size="sm"
+          nativeButton={false}
+          className="w-full justify-start rounded-none text-xs font-medium transition-[transform,border-color,background-color,color] hover:-translate-y-0.5 hover:border-foreground hover:bg-muted hover:text-foreground focus-visible:border-foreground active:translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+          render={<a href={post.editUrl} target="_blank" rel="noreferrer" />}
+        >
+          <PencilSimpleLineIcon className="mr-2" />
+          Edit on GitHub
+        </Button>
+      ) : null}
     </div>
   )
 }
 
+function PostAuthorByline({ authors }: { authors: PostAuthorProfile[] }) {
+  return (
+    <div className="border-b-2 border-border/70 bg-background/60 px-6 py-5 md:px-10">
+      <div className="flex flex-wrap items-center gap-3">
+        {authors.map((author) => {
+          const fallbackInitials = author.name.trim().slice(0, 2).toUpperCase()
+
+          return (
+            <a
+              key={author.name}
+              href={author.profileUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Open ${author.name} on GitHub`}
+              className="group/author inline-flex max-w-full items-center gap-3 border border-border bg-background/80 p-3 transition-[transform,border-color,background-color,color] hover:-translate-y-1 hover:border-foreground hover:bg-muted focus-visible:border-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+            >
+              {author.avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={author.avatarUrl}
+                  alt=""
+                  width={48}
+                  height={48}
+                  className="size-12 shrink-0 rounded-none border border-border bg-muted object-cover transition-[border-color,filter] group-hover/author:border-foreground group-hover/author:saturate-125"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <span
+                  aria-hidden
+                  className="flex size-12 shrink-0 items-center justify-center border border-border bg-muted text-sm font-semibold text-foreground/90 transition-colors group-hover/author:border-foreground"
+                >
+                  {fallbackInitials || "?"}
+                </span>
+              )}
+              <span className="min-w-0 truncate text-sm font-semibold text-foreground/90 transition-colors group-hover/author:text-foreground">
+                {author.name}
+              </span>
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+async function getPostAuthorProfiles(authors: string[]) {
+  return Promise.all(
+    authors.map(async (author) => {
+      const profile = await getGithubAuthorProfile(author)
+
+      return {
+        ...profile,
+        name: author,
+      }
+    })
+  )
+}
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
@@ -180,6 +254,12 @@ export default async function PostPage({ params }: PostPageProps) {
     ),
   }
   const postImage = post.image ?? post.coverImage
+  const displayAuthors = blogSettings.displayAuthors
+  const displayPostInfoCard = blogSettings.displayPostInfoCard
+  const displayTableOfContentsCard = blogSettings.displayTableOfContentsCard
+  const authorProfiles = displayAuthors
+    ? await getPostAuthorProfiles(post.authors)
+    : []
 
   return (
     <main className="relative left-1/2 w-[calc(100vw-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 px-4 py-10 sm:px-6 lg:px-8">
@@ -189,14 +269,18 @@ export default async function PostPage({ params }: PostPageProps) {
       />
 
       <div className="mx-auto grid w-full max-w-5xl grid-cols-1 gap-8 xl:max-w-[94rem] xl:grid-cols-[13rem_minmax(0,64rem)_13rem] xl:items-start">
-        <aside className="sticky top-32 hidden xl:block">
-          <TableOfContents />
-        </aside>
+        {displayTableOfContentsCard ? (
+          <aside className="sticky top-32 hidden xl:block">
+            <TableOfContents />
+          </aside>
+        ) : (
+          <div className="hidden xl:block" aria-hidden />
+        )}
 
         <div className="min-w-0">
           <article className="flex flex-col overflow-hidden rounded-none border-2 border-border/70 bg-background/85 text-left">
             <header className="flex flex-col gap-6 border-b-2 border-border/70 bg-background/60 p-6 pb-8 md:p-10">
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col items-center gap-4 text-center">
                 <h1 className="text-3xl leading-[1.12] font-semibold tracking-tight text-balance text-foreground/90 md:text-4xl lg:text-5xl">
                   {post.title}
                 </h1>
@@ -205,8 +289,14 @@ export default async function PostPage({ params }: PostPageProps) {
                 </p>
               </div>
 
-              <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-muted-foreground">
-                <span className="flex items-center gap-2">{post.author}</span>
+              <div className="mt-4 flex justify-center text-center">
+                <div className="inline-flex max-w-full items-center border border-border bg-background/80 px-4 py-3 text-xs font-medium text-muted-foreground tabular-nums">
+                  <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+                  <span aria-hidden className="px-3 text-border">
+                    |
+                  </span>
+                  <span>{post.readingTimeLabel}</span>
+                </div>
               </div>
 
               {postImage ? (
@@ -223,9 +313,18 @@ export default async function PostPage({ params }: PostPageProps) {
               ) : null}
             </header>
 
-            <div className="border-b-2 border-border/70 bg-background/60 p-6 xl:hidden">
-              <PostInfoMenu post={post} />
-            </div>
+            {displayPostInfoCard ? (
+              <div className="border-b-2 border-border/70 bg-background/60 p-6 xl:hidden">
+                <PostInfoMenu
+                  post={post}
+                  displayEditOnGithub={blogSettings.displayEditOnGithub}
+                />
+              </div>
+            ) : null}
+
+            {displayAuthors ? (
+              <PostAuthorByline authors={authorProfiles} />
+            ) : null}
 
             <div className="prose-blog p-6 text-left md:p-10">
               <MDXRemote
@@ -253,11 +352,18 @@ export default async function PostPage({ params }: PostPageProps) {
           </article>
         </div>
 
-        <aside className="sticky top-32 hidden xl:block">
-          <div className="flex max-h-[calc(100svh-8rem)] flex-col gap-5 overflow-y-auto rounded-none border border-border bg-card p-4 shadow-sm">
-            <PostInfoMenu post={post} />
-          </div>
-        </aside>
+        {displayPostInfoCard ? (
+          <aside className="sticky top-32 hidden xl:block">
+            <div className="flex max-h-[calc(100svh-8rem)] flex-col gap-5 overflow-y-auto rounded-none border border-border bg-card p-4 shadow-sm">
+              <PostInfoMenu
+                post={post}
+                displayEditOnGithub={blogSettings.displayEditOnGithub}
+              />
+            </div>
+          </aside>
+        ) : (
+          <div className="hidden xl:block" aria-hidden />
+        )}
       </div>
     </main>
   )

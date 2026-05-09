@@ -10,6 +10,10 @@
   "repositoryUrl": "https://github.com/haltman-io/blog.haltman.io",
   "repositoryBranch": "main",
   "displayDemoNotice": true,
+  "displayAuthors": false,
+  "displayEditOnGithub": false,
+  "displayPostInfoCard": true,
+  "displayTableOfContentsCard": true,
   "postsDirectory": "content/posts",
   "pagesDirectory": "content/pages",
   "postsPerPage": 6,
@@ -39,9 +43,14 @@
   "footer": {
     "links": [
       {
-        "label": "Archive",
-        "href": "/posts",
+        "label": "Sitemap",
+        "href": "/sitemap.xml",
         "order": 10
+      },
+      {
+        "label": "RSS",
+        "href": "/feed.xml",
+        "order": 20
       },
       {
         "label": "Email",

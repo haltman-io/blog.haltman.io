@@ -18,6 +18,10 @@ export type BlogSettings = {
   repositoryUrl: string
   repositoryBranch: string
   displayDemoNotice: boolean
+  displayAuthors: boolean
+  displayEditOnGithub: boolean
+  displayPostInfoCard: boolean
+  displayTableOfContentsCard: boolean
   postsDirectory: string
   pagesDirectory: string
   postsPerPage: number
@@ -39,7 +43,32 @@ export type BlogSettings = {
   social: Record<string, string>
 }
 
-export const blogSettings = settings as BlogSettings
+type RawBlogSettings = Omit<
+  BlogSettings,
+  | "displayAuthors"
+  | "displayEditOnGithub"
+  | "displayPostInfoCard"
+  | "displayTableOfContentsCard"
+> &
+  Partial<
+    Pick<
+      BlogSettings,
+      | "displayAuthors"
+      | "displayEditOnGithub"
+      | "displayPostInfoCard"
+      | "displayTableOfContentsCard"
+    >
+  >
+
+const rawSettings = settings as RawBlogSettings
+
+export const blogSettings: BlogSettings = {
+  ...rawSettings,
+  displayAuthors: rawSettings.displayAuthors ?? true,
+  displayEditOnGithub: rawSettings.displayEditOnGithub ?? true,
+  displayPostInfoCard: rawSettings.displayPostInfoCard ?? true,
+  displayTableOfContentsCard: rawSettings.displayTableOfContentsCard ?? true,
+}
 
 export const siteUrl = blogSettings.siteUrl.replace(/\/$/, "")
 

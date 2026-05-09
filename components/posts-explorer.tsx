@@ -66,7 +66,12 @@ export function PostsExplorer({
         return true
       }
 
-      return [post.title, post.description, post.author, post.tags.join(" ")]
+      return [
+        post.title,
+        post.description,
+        post.authors.join(" "),
+        post.tags.join(" "),
+      ]
         .join(" ")
         .toLowerCase()
         .includes(normalizedQuery)

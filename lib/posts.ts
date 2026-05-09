@@ -39,6 +39,9 @@ function readPost(filePath: string): BlogPost {
   const date = toIsoDate(frontmatter.date) ?? "1970-01-01T00:00:00.000Z"
   const readingMinutes = Math.max(1, Math.ceil(readingStats.minutes))
   const url = `/posts/${slug}`
+  const authors = toStringArray(frontmatter.author)
+  const safeAuthors = authors.length > 0 ? authors : [blogSettings.ownerName]
+  const author = safeAuthors[0]
 
   return {
     slug,
@@ -51,7 +54,8 @@ function readPost(filePath: string): BlogPost {
     description,
     date,
     updated: toIsoDate(frontmatter.updated),
-    author: toStringValue(frontmatter.author, blogSettings.ownerName),
+    author,
+    authors: safeAuthors,
     tags: toStringArray(frontmatter.tags),
     published: toBooleanValue(frontmatter.published, true),
     featured: toBooleanValue(frontmatter.featured, false),
@@ -92,6 +96,7 @@ export function getPostSummaries(): PostSummary[] {
     date: post.date,
     updated: post.updated,
     author: post.author,
+    authors: post.authors,
     tags: post.tags,
     published: post.published,
     featured: post.featured,

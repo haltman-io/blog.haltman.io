@@ -110,6 +110,10 @@ All blog-level settings live in `blog-settings.json`.
   "repositoryUrl": "https://github.com/haltman-io/blog.haltman.io",
   "repositoryBranch": "main",
   "displayDemoNotice": true,
+  "displayAuthors": true,
+  "displayEditOnGithub": true,
+  "displayPostInfoCard": true,
+  "displayTableOfContentsCard": true,
   "postsDirectory": "content/posts",
   "pagesDirectory": "content/pages",
   "postsPerPage": 6,
@@ -142,19 +146,23 @@ All blog-level settings live in `blog-settings.json`.
 
 Important fields:
 
-| Field               | Purpose                                                                                      |
-| ------------------- | -------------------------------------------------------------------------------------------- |
-| `blogName`          | Site name used in metadata, header, footer, and structured data.                             |
-| `description`       | Global fallback description for metadata and UI copy.                                        |
-| `siteUrl`           | Absolute production URL. Required for canonical URLs, RSS, sitemap, Open Graph, and JSON-LD. |
-| `repositoryUrl`     | Base repository URL used to generate `Edit on GitHub` links.                                 |
-| `repositoryBranch`  | Branch used in generated GitHub edit URLs.                                                   |
-| `displayDemoNotice` | Enables or disables the first-visit demo notice modal.                                       |
-| `postsDirectory`    | Directory where post MDX files are loaded from.                                              |
-| `pagesDirectory`    | Directory where regular page MDX files are loaded from.                                      |
-| `postsPerPage`      | Number of posts shown per archive page.                                                      |
-| `navbar.links`      | Direct navbar links that do not need an MDX page.                                            |
-| `footer.links`      | Direct footer links that do not need an MDX page.                                            |
+| Field                        | Purpose                                                                                      |
+| ---------------------------- | -------------------------------------------------------------------------------------------- |
+| `blogName`                   | Site name used in metadata, header, footer, and structured data.                             |
+| `description`                | Global fallback description for metadata and UI copy.                                        |
+| `siteUrl`                    | Absolute production URL. Required for canonical URLs, RSS, sitemap, Open Graph, and JSON-LD. |
+| `repositoryUrl`              | Base repository URL used to generate `Edit on GitHub` links.                                 |
+| `repositoryBranch`           | Branch used in generated GitHub edit URLs.                                                   |
+| `displayDemoNotice`          | Enables or disables the first-visit demo notice modal.                                       |
+| `displayAuthors`             | Shows or hides author profile links on post pages.                                           |
+| `displayEditOnGithub`        | Shows or hides the `Edit on GitHub` action in post info cards.                               |
+| `displayPostInfoCard`        | Shows or hides the post info card on post pages.                                             |
+| `displayTableOfContentsCard` | Shows or hides the table of contents card on post pages.                                     |
+| `postsDirectory`             | Directory where post MDX files are loaded from.                                              |
+| `pagesDirectory`             | Directory where regular page MDX files are loaded from.                                      |
+| `postsPerPage`               | Number of posts shown per archive page.                                                      |
+| `navbar.links`               | Direct navbar links that do not need an MDX page.                                            |
+| `footer.links`               | Direct footer links that do not need an MDX page.                                            |
 
 ## Writing Posts
 
@@ -166,7 +174,8 @@ title: "My first post"
 description: "A concise summary for cards and SEO."
 date: "2026-05-04"
 updated: "2026-05-04"
-author: "Your Name"
+author:
+  - "github-username"
 tags: ["Next.js", "MDX"]
 featured: false
 published: true
@@ -189,6 +198,7 @@ Post behavior:
 - `published: false` keeps a draft in the repository without rendering it.
 - `featured: true` makes a published post appear in the homepage Featured Content section. The section is hidden when no published posts are featured.
 - Featured Content rotates automatically and shows arrow controls plus a countdown progress bar only when more than one featured post is available.
+- `author` is a list of GitHub usernames. Metadata that needs a single author uses the first item.
 - `image` references an image in `public` with a root-relative path, such as `/pictures/cover.png`, and renders it below the post title and description.
 - `date` controls sorting, RSS, sitemap entries, and article structured data.
 - `seo` overrides page-level metadata without changing the visible article content.
