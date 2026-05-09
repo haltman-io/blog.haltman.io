@@ -170,7 +170,7 @@ author: "Your Name"
 tags: ["Next.js", "MDX"]
 featured: false
 published: true
-coverImage: "/pictures/cover.png"
+image: "/pictures/cover.png"
 canonicalUrl: "https://example.com/my-first-post"
 seo:
   title: "Optional SEO title"
@@ -189,6 +189,7 @@ Post behavior:
 - `published: false` keeps a draft in the repository without rendering it.
 - `featured: true` makes a published post appear in the homepage Featured Content section. The section is hidden when no published posts are featured.
 - Featured Content rotates automatically and shows arrow controls plus a countdown progress bar only when more than one featured post is available.
+- `image` references an image in `public` with a root-relative path, such as `/pictures/cover.png`, and renders it below the post title and description.
 - `date` controls sorting, RSS, sitemap entries, and article structured data.
 - `seo` overrides page-level metadata without changing the visible article content.
 - Every post receives an `Edit on GitHub` link derived from `repositoryUrl`, `repositoryBranch`, and the MDX source path.
@@ -244,7 +245,7 @@ The example above loads:
 public/pictures/architecture.png
 ```
 
-MDX images work in posts and pages. They render centered with a fixed content width and responsive max width.
+MDX images work in posts and pages. They render centered with a fixed content width and responsive max width. Post front matter also supports `image` for a header image shown below the post title and description.
 
 ## SEO
 

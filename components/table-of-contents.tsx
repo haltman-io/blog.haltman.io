@@ -52,7 +52,7 @@ export function TableOfContents() {
   if (headings.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-4 rounded-none border border-border bg-card p-6 shadow-sm">
+    <div className="flex max-h-[calc(100svh-8rem)] flex-col gap-4 overflow-y-auto rounded-none border border-border bg-card p-4 shadow-sm">
       <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground/90">
         On this page
       </h3>

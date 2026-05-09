@@ -20,6 +20,7 @@ export type BlogPost = {
   tags: string[]
   published: boolean
   featured: boolean
+  image?: string
   coverImage?: string
   canonicalUrl?: string
   seo: PostSeo

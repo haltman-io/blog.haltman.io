@@ -56,6 +56,20 @@ export function toStringArray(value: unknown) {
   return []
 }
 
+export function toPublicAssetPath(value: unknown) {
+  const assetPath = toStringValue(value).trim()
+
+  if (!assetPath) {
+    return undefined
+  }
+
+  if (/^https?:\/\//.test(assetPath)) {
+    return assetPath
+  }
+
+  return assetPath.startsWith("/") ? assetPath : `/${assetPath}`
+}
+
 export function toIsoDate(value: unknown) {
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
     return value.toISOString()
