@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { formatPostDate } from "@/lib/format"
+import { postTagHref } from "@/lib/post-tag-links"
 import type { PostSummary } from "@/lib/post-types"
 
 type PostCardProps = {
@@ -27,7 +28,7 @@ export function PostCard({ post, priority = false }: PostCardProps) {
       <CardHeader>
         <CardTitle className="text-base leading-snug tracking-tight">
           <Link href={post.url} className="focus-visible:outline-none">
-            <span className="absolute inset-0" aria-hidden />
+            <span className="absolute inset-0 z-0" aria-hidden />
             {post.title}
           </Link>
         </CardTitle>
@@ -43,9 +44,19 @@ export function PostCard({ post, priority = false }: PostCardProps) {
           {post.description}
         </p>
         {post.tags.length > 0 ? (
-          <div className="relative flex flex-wrap gap-1.5">
+          <div className="relative z-10 flex flex-wrap gap-1.5">
             {post.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline">
+              <Badge
+                key={tag}
+                variant="outline"
+                className="transition-[transform,border-color,background-color,color] hover:-translate-y-0.5 hover:border-foreground hover:bg-muted hover:text-foreground focus-visible:border-foreground active:translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                render={
+                  <Link
+                    href={postTagHref(tag)}
+                    aria-label={`View posts tagged ${tag}`}
+                  />
+                }
+              >
                 {tag}
               </Badge>
             ))}

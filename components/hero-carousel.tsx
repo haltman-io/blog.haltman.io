@@ -10,6 +10,7 @@ import {
 } from "@phosphor-icons/react"
 import type { PostSummary } from "@/lib/post-types"
 import { formatPostDate } from "@/lib/format"
+import { postTagHref } from "@/lib/post-tag-links"
 
 export function HeroCarousel({ posts }: { posts: PostSummary[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -102,12 +103,14 @@ export function HeroCarousel({ posts }: { posts: PostSummary[] }) {
 
           <div className="mt-4 flex flex-wrap gap-2.5 pb-16 md:pb-0">
             {post.tags.slice(0, 5).map((tag) => (
-              <span
+              <Link
                 key={tag}
-                className="border border-border bg-background/70 px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-foreground hover:bg-muted/60"
+                href={postTagHref(tag)}
+                aria-label={`View posts tagged ${tag}`}
+                className="border border-border bg-background/70 px-3 py-1 text-xs font-medium text-foreground transition-[transform,border-color,background-color,color] hover:-translate-y-0.5 hover:border-foreground hover:bg-muted/60 focus-visible:border-foreground focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:outline-none active:translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
                 {tag}
-              </span>
+              </Link>
             ))}
           </div>
         </motion.div>
