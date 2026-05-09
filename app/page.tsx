@@ -19,22 +19,23 @@ export const metadata: Metadata = {
 
 export default function Page() {
   const posts = getPostSummaries()
-  const heroPosts = posts.slice(0, 5)
+  const featuredPosts = posts.filter((post) => post.featured)
   const latestPosts = posts.slice(5, 11) // Remaining posts
   const tags = getAllTags().slice(0, 10)
 
   return (
     <main className="flex w-full animate-in flex-col gap-14 px-4 py-8 md:py-16 duration-1000 zoom-in-95 fade-in sm:px-6 lg:px-8">
       
-      {/* HERO CAROUSEL ONLY */}
-      <section className="relative w-full">
-        <div className="mb-6 flex items-center justify-between pb-2">
-          <h1 className="text-2xl font-semibold tracking-tight text-foreground/90">
-             Featured Content
-          </h1>
-        </div>
-        <HeroCarousel posts={heroPosts} />
-      </section>
+      {featuredPosts.length > 0 ? (
+        <section className="relative w-full">
+          <div className="mb-6 flex items-center justify-between pb-2">
+            <h1 className="text-2xl font-semibold tracking-tight text-foreground/90">
+               Featured Content
+            </h1>
+          </div>
+          <HeroCarousel posts={featuredPosts} />
+        </section>
+      ) : null}
 
       {/* ORIGINAL LATEST POSTS & SIDEBAR */}
       <section className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_280px]">

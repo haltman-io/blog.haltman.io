@@ -45,6 +45,7 @@ The project is designed for people who want to clone a repository, edit a JSON s
 - Dynamic navbar and footer links from both JSON settings and MDX page front matter.
 - Responsive navbar with a mobile hamburger menu.
 - Search, tag filtering, and pagination for the posts archive.
+- Homepage Featured Content carousel for posts marked `featured: true`.
 - RSS feed, sitemap, robots file, canonical URLs, Open Graph metadata, Twitter cards, and JSON-LD.
 - Predictable `Edit on GitHub` links for every post.
 - Static export support for any CDN or static web server.
@@ -186,7 +187,8 @@ Post behavior:
 - The file path becomes the slug unless `slug` is provided in front matter.
 - Nested files create nested URLs.
 - `published: false` keeps a draft in the repository without rendering it.
-- `featured: true` makes the post eligible for featured areas.
+- `featured: true` makes a published post appear in the homepage Featured Content section. The section is hidden when no published posts are featured.
+- Featured Content rotates automatically and shows arrow controls plus a countdown progress bar only when more than one featured post is available.
 - `date` controls sorting, RSS, sitemap entries, and article structured data.
 - `seo` overrides page-level metadata without changing the visible article content.
 - Every post receives an `Edit on GitHub` link derived from `repositoryUrl`, `repositoryBranch`, and the MDX source path.

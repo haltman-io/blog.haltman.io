@@ -10,6 +10,7 @@ export function HeroCarousel({ posts }: { posts: PostSummary[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isHovered, setIsHovered] = useState(false)
   const [direction, setDirection] = useState(1)
+  const hasMultiplePosts = posts.length > 1
 
   const nextSlide = useCallback(() => {
     setDirection(1)
@@ -22,12 +23,12 @@ export function HeroCarousel({ posts }: { posts: PostSummary[] }) {
   }, [posts.length])
 
   useEffect(() => {
-    if (isHovered) return
+    if (!hasMultiplePosts || isHovered) return
     const timer = setInterval(() => {
       nextSlide()
     }, 8000) // 8 seconds per post
     return () => clearInterval(timer)
-  }, [isHovered, nextSlide])
+  }, [hasMultiplePosts, isHovered, nextSlide])
 
   if (posts.length === 0) return null
 
@@ -97,34 +98,38 @@ export function HeroCarousel({ posts }: { posts: PostSummary[] }) {
         </motion.div>
       </AnimatePresence>
 
-      <div className="absolute bottom-6 right-6 flex items-center gap-3 z-10 bg-background/80 backdrop-blur-md rounded-full border border-border/50 p-1.5 shadow-sm">
-        <div className="text-xs font-medium text-muted-foreground px-3 hidden sm:block">
-          {currentIndex + 1} / {posts.length}
-        </div>
-        <button 
-          onClick={prevSlide}
-          className="rounded-full p-2 text-foreground/70 hover:bg-muted hover:text-foreground transition-all cursor-pointer"
-          aria-label="Previous post"
-        >
-          <ArrowLeftIcon className="size-5" />
-        </button>
-        <button 
-          onClick={nextSlide}
-          className="rounded-full p-2 text-foreground/70 hover:bg-muted hover:text-foreground transition-all cursor-pointer"
-          aria-label="Next post"
-        >
-          <ArrowRightIcon className="size-5" />
-        </button>
-      </div>
-      
-      {/* Time remaining indicator line */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-border/30 z-20">
-        <div 
-          key={currentIndex}
-          className="h-full bg-primary/40 animate-shrink-width"
-          style={{ animationPlayState: isHovered ? "paused" : "running" }}
-        />
-      </div>
+      {hasMultiplePosts ? (
+        <>
+          <div className="absolute bottom-6 right-6 flex items-center gap-3 z-10 bg-background/80 backdrop-blur-md rounded-full border border-border/50 p-1.5 shadow-sm">
+            <div className="text-xs font-medium text-muted-foreground px-3 hidden sm:block">
+              {currentIndex + 1} / {posts.length}
+            </div>
+            <button 
+              onClick={prevSlide}
+              className="rounded-full p-2 text-foreground/70 hover:bg-muted hover:text-foreground transition-all cursor-pointer"
+              aria-label="Previous post"
+            >
+              <ArrowLeftIcon className="size-5" />
+            </button>
+            <button 
+              onClick={nextSlide}
+              className="rounded-full p-2 text-foreground/70 hover:bg-muted hover:text-foreground transition-all cursor-pointer"
+              aria-label="Next post"
+            >
+              <ArrowRightIcon className="size-5" />
+            </button>
+          </div>
+          
+          {/* Time remaining indicator line */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-border/30 z-20">
+            <div 
+              key={currentIndex}
+              className="h-full bg-primary/40 animate-shrink-width"
+              style={{ animationPlayState: isHovered ? "paused" : "running" }}
+            />
+          </div>
+        </>
+      ) : null}
     </div>
   )
 }
