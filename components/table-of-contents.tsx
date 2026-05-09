@@ -4,26 +4,32 @@ import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 export function TableOfContents() {
-  const [headings, setHeadings] = useState<{ id: string; text: string; level: number }[]>([])
+  const [headings, setHeadings] = useState<
+    { id: string; text: string; level: number }[]
+  >([])
   const [activeId, setActiveId] = useState<string>("")
 
   useEffect(() => {
     // Delay slightly to ensure MDX content is rendered and IDs are attached
     const timer = setTimeout(() => {
-      const elements = Array.from(document.querySelectorAll(".prose-blog h1, .prose-blog h2, .prose-blog h3, .prose-blog h4"))
+      const elements = Array.from(
+        document.querySelectorAll(
+          ".prose-blog h1, .prose-blog h2, .prose-blog h3, .prose-blog h4"
+        )
+      )
         .filter((element) => element.id)
         .map((element) => ({
           id: element.id,
           text: element.textContent || "",
           level: Number(element.tagName.charAt(1)),
         }))
-      
+
       setHeadings(elements)
 
       const observer = new IntersectionObserver(
         (entries) => {
           // Find all intersecting entries
-          const visibleEntries = entries.filter(e => e.isIntersecting)
+          const visibleEntries = entries.filter((e) => e.isIntersecting)
           if (visibleEntries.length > 0) {
             // Update to the last visible heading for top-down reading flow
             setActiveId(visibleEntries[visibleEntries.length - 1].target.id)
@@ -39,14 +45,14 @@ export function TableOfContents() {
 
       return () => observer.disconnect()
     }, 100)
-    
+
     return () => clearTimeout(timer)
   }, [])
 
   if (headings.length === 0) return null
 
   return (
-    <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
+    <div className="flex flex-col gap-4 rounded-none border border-border bg-card p-6 shadow-sm">
       <h3 className="flex items-center gap-2 text-sm font-semibold tracking-tight text-foreground/90">
         On this page
       </h3>
@@ -56,9 +62,9 @@ export function TableOfContents() {
             key={heading.id}
             href={`#${heading.id}`}
             className={cn(
-              "text-[13px] transition-all py-1 break-words outline-none",
-              activeId === heading.id 
-                ? "text-primary font-medium" 
+              "py-1 text-[13px] break-words transition-all outline-none",
+              activeId === heading.id
+                ? "font-medium text-primary"
                 : "text-muted-foreground hover:text-foreground",
               heading.level === 3 ? "ml-3" : heading.level === 4 ? "ml-6" : ""
             )}

@@ -124,7 +124,7 @@ export default async function PostPage({ params }: PostPageProps) {
           variant="ghost"
           size="sm"
           nativeButton={false}
-          className="rounded-full text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+          className="rounded-none text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
           render={<Link href="/posts" />}
         >
           <ArrowLeftIcon className="mr-2" />
@@ -133,15 +133,15 @@ export default async function PostPage({ params }: PostPageProps) {
       </div>
 
       <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,1fr)_250px]">
-        <article className="flex flex-col overflow-hidden rounded-3xl border border-border/50 bg-card/50 shadow-sm backdrop-blur-sm">
-          <header className="flex flex-col gap-6 border-b border-border/50 bg-background/50 p-6 pb-8 md:p-10">
+        <article className="flex flex-col overflow-hidden rounded-none border-2 border-border/70 bg-background/85 shadow-[8px_8px_0px_var(--foreground)]">
+          <header className="flex flex-col gap-6 border-b-2 border-border/70 bg-background/60 p-6 pb-8 md:p-10">
             {post.tags.length > 0 ? (
               <div className="flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <Badge
                     key={tag}
                     variant="secondary"
-                    className="rounded-md px-2.5 py-1 text-xs font-medium"
+                    className="rounded-none border border-border bg-background/80 px-2.5 py-1 text-xs font-medium"
                   >
                     {tag}
                   </Badge>
@@ -150,26 +150,21 @@ export default async function PostPage({ params }: PostPageProps) {
             ) : null}
 
             <div className="flex flex-col gap-4">
-              <h1 className="text-4xl leading-[1.1] font-semibold tracking-tight text-balance md:text-5xl lg:text-6xl text-foreground/90">
+              <h1 className="text-3xl leading-[1.12] font-semibold tracking-tight text-balance text-foreground/90 md:text-4xl lg:text-5xl">
                 {post.title}
               </h1>
-              <p className="text-lg font-light leading-relaxed text-muted-foreground md:text-xl max-w-3xl">
+              <p className="max-w-3xl text-base leading-relaxed font-light text-muted-foreground md:text-lg">
                 {post.description}
               </p>
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-medium text-muted-foreground">
-              <span className="flex items-center gap-2">
-                {post.author}
-              </span>
+              <span className="flex items-center gap-2">{post.author}</span>
               <time
                 dateTime={post.date}
                 className="inline-flex items-center gap-1.5"
               >
-                <CalendarBlankIcon
-                  aria-hidden
-                  className="size-4"
-                />
+                <CalendarBlankIcon aria-hidden className="size-4" />
                 {formatPostDate(post.date)}
               </time>
               <span className="inline-flex items-center gap-1.5">
@@ -183,7 +178,7 @@ export default async function PostPage({ params }: PostPageProps) {
                 variant="outline"
                 size="sm"
                 nativeButton={false}
-                className="rounded-full text-xs font-medium"
+                className="rounded-none text-xs font-medium"
                 render={
                   <a href={post.editUrl} target="_blank" rel="noreferrer" />
                 }

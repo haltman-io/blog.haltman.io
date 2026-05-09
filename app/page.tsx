@@ -24,13 +24,12 @@ export default function Page() {
   const tags = getAllTags().slice(0, 10)
 
   return (
-    <main className="flex w-full animate-in flex-col gap-14 px-4 py-8 md:py-16 duration-1000 zoom-in-95 fade-in sm:px-6 lg:px-8">
-      
+    <main className="flex w-full animate-in flex-col gap-14 px-4 py-8 duration-1000 zoom-in-95 fade-in sm:px-6 md:py-16 lg:px-8">
       {featuredPosts.length > 0 ? (
         <section className="relative w-full">
           <div className="mb-6 flex items-center justify-between pb-2">
             <h1 className="text-2xl font-semibold tracking-tight text-foreground/90">
-               Featured Content
+              Featured Content
             </h1>
           </div>
           <HeroCarousel posts={featuredPosts} />
@@ -51,7 +50,7 @@ export default function Page() {
             </div>
             <Link
               href="/posts"
-              className="hidden text-sm font-medium text-muted-foreground hover:text-foreground hover:underline sm:inline-flex transition-colors"
+              className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:underline sm:inline-flex"
             >
               View archive
             </Link>
@@ -64,7 +63,7 @@ export default function Page() {
               ))}
             </div>
           ) : (
-            <Card className="rounded-2xl border border-border bg-card/50 shadow-sm">
+            <Card className="rounded-none border border-border bg-card/50 shadow-sm">
               <CardContent className="flex flex-col items-center justify-center gap-3 p-10">
                 <FileTextIcon
                   aria-hidden
@@ -79,7 +78,7 @@ export default function Page() {
         </div>
 
         <aside className="flex flex-col gap-8">
-          <div className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <div className="flex flex-col gap-4 rounded-none border border-border bg-card p-6 shadow-sm">
             <h2 className="text-sm font-semibold tracking-tight text-foreground/90">
               Tags
             </h2>
@@ -88,23 +87,23 @@ export default function Page() {
                 <Badge
                   key={tag.name}
                   variant="secondary"
-                  className="cursor-pointer rounded-lg px-2.5 py-1 text-xs font-medium transition-colors hover:bg-primary hover:text-primary-foreground"
+                  className="cursor-pointer rounded-none px-2.5 py-1 text-xs font-medium transition-colors hover:bg-primary hover:text-primary-foreground"
                 >
                   {tag.name}
-                  <span className="ml-1.5 opacity-50">
-                    {tag.count}
-                  </span>
+                  <span className="ml-1.5 opacity-50">{tag.count}</span>
                 </Badge>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-col gap-1.5 text-sm text-muted-foreground px-2">
-            <p className="font-medium text-foreground">{blogSettings.ownerName}</p>
+          <div className="flex flex-col gap-1.5 px-2 text-sm text-muted-foreground">
+            <p className="font-medium text-foreground">
+              {blogSettings.ownerName}
+            </p>
             <p>{blogSettings.ownerRole}</p>
             <a
               href={`mailto:${blogSettings.email}`}
-              className="self-start transition-colors hover:text-foreground mt-2"
+              className="mt-2 self-start transition-colors hover:text-foreground"
             >
               {blogSettings.email}
             </a>

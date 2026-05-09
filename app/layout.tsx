@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, JetBrains_Mono } from "next/font/google"
+import { JetBrains_Mono } from "next/font/google"
 
 import "./globals.css"
 import { DemoNoticeModal } from "@/components/demo-notice-modal"
@@ -9,14 +9,10 @@ import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { absoluteUrl, blogSettings } from "@/lib/blog-settings"
 
-const fontSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -71,14 +67,9 @@ export default function RootLayout({
     <html
       lang={blogSettings.language}
       suppressHydrationWarning
-      className={cn(
-        "antialiased",
-        fontSans.variable,
-        "font-mono",
-        jetbrainsMono.variable
-      )}
+      className={cn("antialiased", "font-mono", jetbrainsMono.variable)}
     >
-      <body className="bg-background text-foreground selection:bg-foreground selection:text-background">
+      <body className="bg-background font-mono text-foreground selection:bg-foreground selection:text-background">
         <ThemeProvider>
           <div className="relative flex min-h-svh flex-col">
             <div className="pointer-events-none fixed inset-0 z-0 flex justify-center">
