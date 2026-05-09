@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function Page() {
   const posts = getPostSummaries()
   const featuredPosts = posts.filter((post) => post.featured)
-  const latestPosts = posts.slice(5, 11) // Remaining posts
+  const latestPosts = posts.filter((post) => !post.featured).slice(0, 6)
   const tags = getAllTags().slice(0, 10)
 
   return (
